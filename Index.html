@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StackDown</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <audio id="backgroundMusic" loop>
+      <source src="https://uploads.onecompiler.io/43s2gqesr/443pnewkg/som.png" type="audio/mpeg"/>
+    </audio>
+    <div id="instructionsModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Como Jogar</h2>
+            <ul>
+                <li><strong>Seta Esquerda:</strong> Mover para a esquerda</li>
+                <li><strong>Seta Direita:</strong> Mover para a direita</li>
+                <li><strong>Seta Baixo:</strong> Acelerar queda (Soft Drop)</li>
+                <li><strong>Seta Cima:</strong> Girar a peça</li>
+                <li><strong>Barra de Espaço:</strong> Queda Rápida (Hard Drop)</li>
+                <li><strong>Tecla 'P':</strong> Pausar / Continuar</li>
+            </ul>
+            <p>Complete linhas horizontais para marcar pontos. Divirta-se!</p>
+            <button id="closeModalButton">Entendido!</button>
+
+            <div class="credits">
+                <p>Desenvolvido por:</p>
+                <ul>
+                    <li><a href="https://github.com/marialaura123fernandes-lgtm" target="_blank">Maria Laura</a></li>
+                     <li><a href="https://github.com/arlebiina" target="_blank">Maria Eduarda</a></li>
+                    <li><a href="https://github.com/luisfelipeoliveirateodoro" target="_blank">Luis Felipe </a></li>
+                    <li><a href="https://github.com/izaaaaaaaa" target="_blank">Izadora Peres</a></li>
+                    <li><a href="https://github.com/0001137790-create" target="_blank">Izabella Peres</a></li>
+                </ul>
+            </div>
+            </div>
+    </div>
+
+    <div id="startScreen">
+        <h1>StackDown</h1>
+        
+        <h2>Recorde</h2>
+        <p id="startScreenHighScoreName">Ninguém</p>
+        <p id="startScreenHighScore">0</p>
+        
+        <h2>Seu Nome</h2>
+        <input type="text" id="startScreenNameInput" placeholder="Digite seu nome" maxlength="15">
+        
+        <button id="startScreenButton">Iniciar Jogo</button>
+        <button id="settingsButton" class="button-secondary">Configurações</button>
+
+        <div class="credits">
+            <p>Desenvolvido por:</p>
+            <ul>
+                <li><a href="https://github.com/marialaura123fernandes-lgtm" target="_blank">Maria Laura</a></li>
+                    <li><a href="https://github.com/arlebiina" target="_blank">Maria Eduarda</a></li>
+                     <li><a href="https://github.com/luisfelipeoliveirateodoro" target="_blank">Luis Felipe </a></li>
+                    <li><a href="https://github.com/izaaaaaaaa" target="_blank">Izadora Peres</a></li>
+                    <li><a href="https://github.com/0001137790-create" target="_blank">Izabella Peres</a></li>
+            </ul>
+        </div>
+        </div>
+
+    <div class="game-area hidden">
+        <h1>StackDown</h1>
+        <div class="game-container">
+            <canvas id="gameCanvas" width="300" height="600"></canvas>
+            
+            <div class="ui-panel">
+                <h2>Pontuação</h2>
+                <p id="score">0</p>
+                
+                <h2>Jogador</h2>
+                <p id="gamePlayerName">Anônimo</p>
+                
+                <h2>Duração</h2>
+                <p id="timer">00:00</p>
+
+                <h2>Recorde</h2>
+                <p id="gameHighScoreName">Ninguém</p>
+                <p id="gameHighScore">0</p>
+                
+                <button id="pauseButton" disabled>Pausar</button>
+                
+                <div class="controls">
+                    <h3>Controles:</h3>
+                    <p><strong>Setas:</strong> Mover</p>
+                    <p><strong>Seta Cima:</strong> Girar</p>
+                    <p><strong>Espaço:</strong> Cair Rápido</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pauseOverlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>PAUSADO</h2>
+            <button id="resumeButton">Continuar</button>
+
+            <div class="credits">
+                <p>Desenvolvido por:</p>
+                <ul>
+                    <li><a href="https://github.com/marialaura123fernandes-lgtm" target="_blank">Maria Laura</a></li>
+                     <li><a href="https://github.com/arlebiina" target="_blank">Maria Eduarda</a></li>
+                    <li><a href="https://github.com/luisfelipeoliveirateodoro" target="_blank">Luis Felipe </a></li>
+                    <li><a href="https://github.com/izaaaaaaaa" target="_blank">Izadora Peres</a></li>
+                    <li><a href="https://github.com/0001137790-create" target="_blank">Izabella Peres</a></li>
+                </ul>
+            </div>
+            </div>
+    </div>
+    
+    <div id="gameOverOverlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="gameOverTitle">Fim de Jogo!</h2>
+            
+            <div class="game-over-stats">
+                <h3>Jogador</h3>
+                <p id="gameOverPlayerName">luis</p>
+                
+                <h3>Sua Pontuação</h3>
+                <p id="gameOverScore">1200</p>
+                
+                <hr>
+                
+                <h3>Recorde Atual</h3>
+                <p id="gameOverHighScoreName">luis</p>
+                <p id="gameOverHighScore">1200</p>
+            </div>
+            
+            <button id="gameOverButton">Voltar ao Início</button>
+        </div>
+    </div>
+    
+    <div id="settingsModal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2>Configurações</h2>
+        
+        <div class="setting-item">
+            <label for="volumeSlider">Volume</label>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3">
+        </div>
+        
+        <div class="setting-item">
+            <button id="muteButton">Desligar Som</button>
+        </div>
+        
+        <button id="closeSettingsButton">Salvar e Fechar</button>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
