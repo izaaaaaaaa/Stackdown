@@ -546,3 +546,26 @@ canvas {
 #muteButton.muted {
     background-color: #ffc107; /* Amarelo */
 }
+
+/* --- Estilo do Easter Egg (T-Spin) --- */
+#easterEggMessage {
+  /* Posicionamento sobre o canvas */
+  position: absolute;
+  top: 40%; /* Perto do meio da tela do jogo */
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+  width: 80%; /* Para caber no canvas */
+  
+  /* Aparência (usando suas variáveis) */
+  background-color: rgba(255, 255, 100, 0.95); /* Amarelo-claro */
+  color: var(--bg-color); /* Texto escuro (contraste) */
+  padding: 15px 20px;
+  border-radius: 12px; /* Padrão dos seus modais */
+  border: 3px solid var(--border-color);
+  font-weight: 600;
+  text-align: center;
+  
+  /* Abaixo dos modais (200), mas acima do canvas (0) */
+  z-index: 100; 
+  pointer-events: none; /* Não bloquear o clique */
+}
