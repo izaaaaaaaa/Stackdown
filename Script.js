@@ -31,13 +31,20 @@ const settingsModal = document.getElementById('settingsModal');
 const closeSettingsButton = document.getElementById('closeSettingsButton');
 const volumeSlider = document.getElementById('volumeSlider');
 const muteButton = document.getElementById('muteButton');
+// --- Constantes Chave (Storage Keys) ---
 const HIGH_SCORE_KEY = 'meuTetrisHighScore';
 const HIGH_SCORE_NAME_KEY = 'meuTetrisHighScoreName';
 const LAST_PLAYER_NAME_KEY = 'meuTetrisLastPlayer';
-// --- CHAVES DE CONFIGURAÇÕES ADICIONADAS ---
 const VOLUME_KEY = 'stackDownVolume';
-const MUTE_KEY = 'stackDownMuted';
-const COLS = 10;
+const MUTE_KEY = 'stackDownMuted'; // Agora só existe uma
+
+// --- Variáveis do Easter Egg ---
+let tSpinCounter = 0;
+const T_SPIN_LIMIT = 7; // Quantos giros para ativar
+let easterEggTriggeredThisPiece = false;
+
+// --- Constantes do Jogo (Grid) ---
+const COLS = 10; // Agora só existe uma
 const ROWS = 20;
 const BLOCK_SIZE = 30;
 
@@ -127,6 +134,22 @@ function toggleMute() {
         muteButton.classList.remove('muted');
     }
 }
+
+/** Mostra a mensagem do Easter Egg por 3 segundos.
+ * Usa o elemento #easterEggMessage do seu HTML.*/
+function showEasterEgg(message) {
+    const messageElement = document.getElementById('easterEggMessage');
+    if (!messageElement) return; // Segurança
+
+    messageElement.innerText = message;
+    messageElement.classList.remove('hidden'); // Mostra a mensagem
+
+    // Esconde a mensagem automaticamente após 3 segundos
+    setTimeout(() => {
+        messageElement.classList.add('hidden');
+    }, 3000);
+}
+
 /** Carrega o recorde salvo no localStorage e atualiza a tela inicial */
 function loadHighScore() {
     currentHighScore = parseInt(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
@@ -187,6 +210,9 @@ function createGrid() {
 
 /** Gera uma nova peça aleatória */
 function spawnNewPiece() {
+    // Reseta o contador do Easter Egg para esta nova peça
+    tSpinCounter = 0;
+    easterEggTriggeredThisPiece = false;
     const randomName = PIECE_NAMES[Math.floor(Math.random() * PIECE_NAMES.length)];
     const definition = SHAPES[randomName];
     const shape = definition.rotations[0];
@@ -441,7 +467,18 @@ document.addEventListener('keydown', (e) => {
         case 'ArrowLeft': movePiece(-1, 0); break;
         case 'ArrowRight': movePiece(1, 0); break;
         case 'ArrowDown': drop(); dropCounter = 0; break;
-        case 'ArrowUp': rotatePiece(); break;
+        case 'ArrowUp': 
+            if (currentPiece.name === 'T4' && !easterEggTriggeredThisPiece) { // A peça 'T' no seu objeto SHAPES chama-se 'T4'
+                tSpinCounter++;
+                
+                if (tSpinCounter >= T_SPIN_LIMIT) { // Verifica se atingiu o limite
+                    showEasterEgg("Uau, você ama esse T! 🧐"); // Mude a mensagem aqui!
+                    easterEggTriggeredThisPiece = true; // Impede que mostre de novo
+                }
+            }
+            
+            rotatePiece(); // Chama a função original de giro
+            break;
         case ' ':
             e.preventDefault();
             while (movePiece(0, 1)) { /* hard drop */ }
@@ -527,3 +564,4 @@ grid = createGrid();
 draw(); 
 loadHighScore();
 loadSettings(); // <-- ADICIONADO: Carrega as configurações de som salvas
+
