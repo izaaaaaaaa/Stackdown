@@ -1,0 +1,548 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --bg-color: #1a1a2e;
+    --primary-color: #2a2a3e;
+    --text-color: #f0f0f0;
+    --accent-color: #00e5ff;
+    --border-color: #4a4a5e;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+    overflow: hidden; /* Impede scroll */
+}
+
+h1 {
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Classe para esconder/mostrar elementos */
+.hidden {
+    display: none !important;
+}
+
+/* Estilo da Tela Inicial */
+#startScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#startScreen h1 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+#startScreen h2 {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+#startScreenHighScoreName {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1;
+}
+
+#startScreenHighScore {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#startScreenNameInput {
+    width: 300px;
+    max-width: 90%;
+    padding: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    background-color: var(--primary-color);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: border-color 0.3s ease;
+}
+
+#startScreenNameInput:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+#startScreenButton {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 300px;
+    max-width: 90%;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#startScreenButton:hover {
+    background-color: #00c4dd;
+}
+
+#startScreenButton:active {
+    transform: scale(0.98);
+}
+
+/* --- Estilos do Jogo --- */
+
+.game-container {
+    display: flex;
+    gap: 30px;
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+canvas {
+    background-color: #000;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.ui-panel {
+    width: 200px;
+    text-align: left;
+}
+
+.ui-panel h2 {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+#score {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#timer {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Estilos para os novos elementos da UI */
+#gamePlayerName {
+    font-size: 1.5rem; /* Tamanho médio */
+    font-weight: 400;
+    color: var(--accent-color); /* Cor de destaque */
+    margin-top: -5px; /* Mais perto do título "Jogador" */
+    margin-bottom: 15px;
+}
+
+#gameHighScore {
+    font-size: 2.5rem; /* Igual ao #score */
+    font-weight: 600;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 5px; /* Menos espaço para o nome */
+}
+
+#gameHighScoreName {
+    font-size: 1.2rem; /* Um pouco menor */
+    font-weight: 300;
+    color: #ccc;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+
+.controls {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.controls h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.controls p {
+    margin: 5px 0;
+}
+
+/* Estilo do Botão de Pausa */
+#pauseButton {
+    background-color: #ffc107; /* Cor de "aviso" */
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#pauseButton:hover {
+    background-color: #ffda6a;
+}
+
+#pauseButton:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* --- Estilos dos Modais --- */
+
+/* Estilos do Modal de Instruções (e base do Pause) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-content {
+    background-color: var(--primary-color);
+    padding: 30px 40px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+    text-align: left;
+}
+
+.modal-content h2 {
+    color: var(--accent-color);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modal-content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.modal-content li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.modal-content li strong {
+    color: var(--accent-color);
+    margin-right: 10px;
+    display: inline-block;
+    width: 130px; /* Alinha os controles */
+}
+
+.modal-content p {
+    text-align: center;
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 25px;
+}
+
+#closeModalButton {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#closeModalButton:hover {
+    background-color: #00c4dd;
+}
+
+/* Estilo Específico do Botão de Continuar (no overlay de pausa) */
+#pauseOverlay .modal-content {
+    text-align: center;
+    max-width: 300px;
+}
+
+#resumeButton {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#resumeButton:hover {
+    background-color: #00c4dd;
+}
+
+/* NOVO: Estilos dos Créditos */
+.credits {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.credits p {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.credits ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Coloca os nomes lado a lado */
+    justify-content: center;
+    gap: 15px;
+}
+
+.credits li {
+    font-size: 1rem; /* Reseta o tamanho da fonte do modal */
+    margin-bottom: 0; /* Reseta a margem do modal */
+}
+
+.credits a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.credits a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Ajuste para o modal de pausa, que é menor */
+#pauseOverlay .credits {
+    margin-top: 20px;
+}
+#pauseOverlay .credits ul {
+    flex-direction: column; /* Nomes um embaixo do outro no modal pequeno */
+    gap: 5px;
+}
+
+/* Ajuste para a tela inicial (centralizar) */
+#startScreen .credits {
+    position: absolute;
+    bottom: 20px;
+}
+
+/* --- ESTILOS DA NOVA TELA DE FIM DE JOGO --- */
+
+#gameOverOverlay .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+#gameOverTitle {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+}
+
+/* Título especial para NOVO RECORDE */
+#gameOverTitle.new-record {
+    color: #FFD600; /* Dourado/Amarelo */
+}
+
+.game-over-stats {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.game-over-stats h3 {
+    color: var(--accent-color);
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 15px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.game-over-stats p {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 5px 0 0 0;
+}
+
+.game-over-stats hr {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin: 20px 0;
+}
+
+/* Estilo para a pontuação final (para diferenciar do recorde) */
+#gameOverScore {
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+
+#gameOverButton {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#gameOverButton:hover {
+    background-color: #00c4dd;
+}
+.button-secondary {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border: 2px solid var(--border-color);
+    padding: 13px 30px; /* Alinha com o botão principal */
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 300px;
+    max-width: 90%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-top: 15px; /* Espaço abaixo do botão Iniciar */
+}
+
+.button-secondary:hover {
+    background-color: var(--bg-color);
+    border-color: var(--accent-color);
+}
+
+/* Modal de Configurações */
+#settingsModal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+.setting-item {
+    margin: 25px 0;
+    text-align: left;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* Estilo do Slider de Volume */
+#volumeSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: var(--bg-color);
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.2s ease;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Botão de Mudo */
+#muteButton, #closeSettingsButton {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#muteButton:hover, #closeSettingsButton:hover {
+    background-color: #00c4dd;
+}
+
+/* Estilo quando está mudo */
+#muteButton.muted {
+    background-color: #ffc107; /* Amarelo */
+}
